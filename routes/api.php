@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\V1\ChatController;
 use App\Http\Controllers\Api\V1\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\LogoutController;
 use App\Http\Controllers\Api\V1\RegisterController;
 use App\Http\Controllers\Api\V1\ResetPasswordController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,7 @@ Route::prefix('v1')->middleware('guest')->group(function () {
 });
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
-    Route::post('v1/logout', LogoutController::class);
-
+    Route::post('logout', LogoutController::class);
+    Route::get('user', [UserController::class,'index']);
+    Route::get('chats', [ChatController::class, 'index']);
 });

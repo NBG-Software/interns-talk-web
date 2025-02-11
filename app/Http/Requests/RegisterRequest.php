@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|unique:users|email',
-            'password' => ['required','confirmed', Password::min(6)->mixedCase()->numbers(), 'regex:/^[a-zA-Z0-9]+$/'],
+            'password' => ['required','confirmed', Password::min(8)->mixedCase()->numbers(), 'regex:/^[a-zA-Z0-9]+$/'],
         ];
     }
 }

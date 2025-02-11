@@ -22,7 +22,9 @@ class RegisterController extends Controller
 
             $user->save();
 
-            return response()->success($request, null, 'Registration successful', 200);
+            $token = $user->createToken($user->id)->plainTextToken;
+
+            return response()->success($request,['token' => $token], 'Registration successful', 200);
 
         } catch (Exception $e) {
 
