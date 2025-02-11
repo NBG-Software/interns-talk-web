@@ -75,8 +75,8 @@
                     </li>
                 </ul>
             </aside>
-            <div class="p-4">
-                <h4>Nothing here</h4>
+            <div class="container-fluid">
+                {{-- <h4>Nothing here</h4> --}}
                 @yield('content')
             </div>
         </main>
