@@ -3,10 +3,17 @@
 @section('content')
 <div class="container vh-100">
     <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-md-5">
+        <div class="col-11 col-md-8 col-lg-5">
+            <div class="text-center mb-2">
+                <img src="{{asset('assets/intern_talk_logo.png')}}" width="80" alt="">
+            </div>
+            <div class="text-center mb-5">
+                <img src="{{asset('assets/intern_talk_text.png')}}" width="100" alt="">
+            </div>
             <div class="card px-4 py-3">
 
                 <div class="card-body">
+                    <p class="fw-bold">Reset Password</p>
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
@@ -42,9 +49,16 @@
                             <input id="password-confirm" type="password" class="form-control bg-light shadow-none" name="password_confirmation" required autocomplete="new-password">
                         </div>
 
-                        <div class="">
+                        {{-- <div class="">
                             <button id="reset-btn" type="submit" class="btn btn-primary">
                                 Reset Password
+                            </button>
+                        </div> --}}
+
+                        <div class="text-center mt-3">
+                            <button type="submit" id="reset-btn" class="btn btn-primary rounded-1 w-100 d-flex justify-content-center align-items-center">
+                                <span id="spinner" class="spinner-border spinner-border-sm me-3" style="display: none" aria-hidden="true"></span>
+                                <p class="mb-0">Reset Password</p>
                             </button>
                         </div>
                     </form>
@@ -54,3 +68,13 @@
     </div>
 </div>
 @endsection
+
+
+@push('js')
+    <script type="module">
+        document.addEventListener('submit', function (event) {
+            isLoading(event, 'reset-btn');
+        });
+
+    </script>
+@endpush

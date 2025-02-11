@@ -110,9 +110,11 @@
                             </a>
                         </div>
 
-                        <div class="">
-                            <button id="register-btn" type="submit" class="w-100 btn btn-primary">
-                                Register
+
+                        <div class="text-center mt-3">
+                            <button type="submit" id="register-btn" class="btn btn-primary rounded-1 w-100 d-flex justify-content-center align-items-center">
+                                <span id="spinner" class="spinner-border spinner-border-sm me-3" style="display: none" aria-hidden="true"></span>
+                                <p class="mb-0">Register</p>
                             </button>
                         </div>
                     </form>
@@ -138,4 +140,13 @@
 
     });
 </script>
+@endpush
+
+@push('js')
+    <script type="module">
+        document.addEventListener('submit', function (event) {
+            isLoading(event, 'register-btn');
+        });
+
+    </script>
 @endpush
