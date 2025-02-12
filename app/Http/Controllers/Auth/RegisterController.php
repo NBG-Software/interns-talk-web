@@ -71,7 +71,7 @@ class RegisterController extends Controller
         $newName = '';
         if(isset($data['profile_picture'])){
             $newName = uniqid() .'_'. "profile_picture" .'.'. $data['profile_picture']->extension();
-            $data['profile_picture']->storeAs("public/profile_pictures", $newName);
+            $data['profile_picture']->storeAs('profile_pictures',$newName);
         };
 
 

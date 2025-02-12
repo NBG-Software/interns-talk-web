@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <a type="button" class="text-dark text-decoration-none" href="{{ route('login') }}">
+                            <a type="button" class="text-dark text-decoration-none custom-hover" href="{{ route('login') }}">
                                 Already have an account?
                             </a>
                         </div>

@@ -14,4 +14,8 @@ class Mentor extends Model
         'expertise',
         'company',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

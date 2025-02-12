@@ -21,7 +21,7 @@
 <body>
     <div id="app" class="vh-100">
         <nav class="navbar navbar-expand-md navbar-light bg-white border-0 border-bottom border-black-50">
-            <div class="container-fluid px-5 py-1">
+            <div class="container-fluid px-4 py-1">
                 {{-- nav logo --}}
                 <div class="d-flex align-items-center">
                     <img src="{{asset('assets/intern_talk_logo.png')}}" class="me-3" width="50" alt="">
@@ -56,13 +56,15 @@
             <aside class="bg-white h-100 sidebar border-0 border-end border-black-50 p-4">
                 <ul class="list-unstyled">
                     <li class="mb-2">
-                        <a href="" class="btn btn-secondary text-start text-dark fw-bold w-100">
+                        <a href="" class="btn btn-custom-hover text-start text-dark fw-bold w-100">
+                            <img src="{{asset('assets/dashboard/chart-bar.png')}}" class="me-2" width="15" alt="">
                             Intern List
                         </a>
                     </li>
 
                     <li class="mb-2">
-                        <a href="" class="btn text-start text-dark fw-bold w-100">
+                        <a href="{{route('profile.show')}}" class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('profile.show') ? 'btn-secondary' : '' }}">
+                            <img src="{{asset('assets/dashboard/cog.png')}}" class="me-2" width="15" alt="">
                             Edit Profile
                         </a>
                     </li>
@@ -70,13 +72,16 @@
                     <li class="">
                         <form action="{{route('logout')}}" method="post" class="">
                             @csrf
-                            <button type="submit" class="btn text-start w-100 text-dark fw-bold">Log out</button>
-                        </a>
+                            <button class="btn btn-custom-hover  text-start w-100 text-dark fw-bold">
+                                <img src="{{asset('assets/dashboard/logout.png')}}" class="me-2" width="15" alt="">
+                                Log out
+                            </button>
+                        </form>
+
                     </li>
                 </ul>
             </aside>
-            <div class="p-4">
-                <h4>Nothing here</h4>
+            <div class="container-fluid py-4">
                 @yield('content')
             </div>
         </main>

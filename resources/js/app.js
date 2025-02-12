@@ -1,10 +1,15 @@
 import './bootstrap';
-
+import { Modal } from 'bootstrap';
 
 // Loading feature for login,register,forgot/reset password
-window.isLoading = function(event, button){
+window.isLoading = function(event, button, spinner='spinner'){
     let targetBtn = document.getElementById(button)
-    let spinner = document.getElementById('spinner')
+    let spinnerBtn = document.getElementById(spinner)
     targetBtn.disabled = true
-    spinner.style.display = "inline-block"
+    spinnerBtn.style.display = "inline-block"
 };
+
+window.showModal = () => {
+    const myModal = new Modal(document.getElementById('exampleModal'));
+    myModal.show();
+  }
