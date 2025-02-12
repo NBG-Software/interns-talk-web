@@ -56,7 +56,7 @@
             <aside class="bg-white h-100 sidebar border-0 border-end border-black-50 p-4">
                 <ul class="list-unstyled">
                     <li class="mb-2">
-                        <a href="" class="btn btn-custom-hover text-start text-dark fw-bold w-100">
+                        <a href="{{route('intern.list')}}" class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('intern.list') ? 'btn-secondary' : '' }}">
                             <img src="{{asset('assets/dashboard/chart-bar.png')}}" class="me-2" width="15" alt="">
                             Intern List
                         </a>
@@ -81,8 +81,8 @@
                     </li>
                 </ul>
             </aside>
-            
-            <div class="container-fluid">
+
+            <div class="container-fluid py-4">
                 {{-- <h4>Nothing here</h4> --}}
                 @yield('content')
             </div>
