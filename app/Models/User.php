@@ -50,4 +50,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // A user can have many chats.
+    public function chats()
+    {
+        return $this->hasMany(Chat::class);
+    }
+
+    // A user can be a mentor (one-to-one).
+    public function mentor()
+    {
+        return $this->hasOne(Mentor::class);
+    }
+
+    // A user can send many messages.
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
 }
