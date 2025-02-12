@@ -81,7 +81,9 @@
                     </li>
                 </ul>
             </aside>
-            <div class="container-fluid py-4">
+            
+            <div class="container-fluid">
+                {{-- <h4>Nothing here</h4> --}}
                 @yield('content')
             </div>
         </main>
