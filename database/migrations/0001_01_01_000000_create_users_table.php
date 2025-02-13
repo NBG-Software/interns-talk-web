@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('profile_picture');
             $table->softDeletes('deleted_at');
             $table->rememberToken();
-            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
 
