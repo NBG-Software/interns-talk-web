@@ -21,8 +21,8 @@
                                 <small class="text-danger mt-2">{{$message}}</small>
                             @enderror
                             <div class="mt-2 mb-3">
-                                <label type="button" for="upload_profile">Upload Profile</label>
-                                <input style="display: none" type="file" name="profile_picture" id="upload_profile">
+                                <label type="button" class="custom-hover" for="upload_profile">Upload Profile</label>
+                                <input style="display: none" type="file" accept="image/png, image/jpeg, image/jpg" name="profile_picture" id="upload_profile">
                             </div>
                         </div>
 
@@ -30,7 +30,7 @@
                             <label for="email" class="mb-2">Your Email</label>
 
                             <input id="email" type="email"
-                                class="form-control bg-light shadow-none @error('email') is-invalid @enderror" name="email"
+                                class="form-control bg-light py-2 shadow-none @error('email') is-invalid @enderror" name="email"
                                 value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                             @error('email')
@@ -45,7 +45,7 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <input type="text" name="first_name" class="form-control bg-light shadow-none @error('first_name') is-invalid @enderror" value="{{old('first_name')}}" required placeholder="First">
+                                    <input type="text" name="first_name" class="form-control py-2 bg-light shadow-none @error('first_name') is-invalid @enderror" value="{{old('first_name')}}" required placeholder="First">
                                 </div>
                                 <div class="col-6">
                                     <input type="text" name="last_name" class="form-control bg-light shadow-none @error('last_name') is-invalid @enderror" value="{{old('last_name')}}" required placeholder="Second">
@@ -57,7 +57,7 @@
                             <label for="email" class="mb-2">Company</label>
 
                             <input id="company" type="text"
-                                class="form-control bg-light shadow-none @error('company') is-invalid @enderror" name="company"
+                                class="form-control bg-light shadow-none py-2 @error('company') is-invalid @enderror" name="company"
                                 value="{{ old('company') }}" required autocomplete="company" autofocus>
 
                             @error('company')
@@ -71,7 +71,7 @@
                             <label for="email" class="mb-2">Expertise</label>
 
                             <input id="expertise" type="text"
-                                class="form-control bg-light shadow-none @error('expertise') is-invalid @enderror" name="expertise"
+                                class="form-control bg-light shadow-none py-2 @error('expertise') is-invalid @enderror" name="expertise"
                                 value="{{ old('expertise') }}" required autocomplete="expertise" autofocus>
 
                             @error('expertise')
@@ -84,8 +84,8 @@
                         <div class="form-group mb-3">
                             <label for="password" class="mb-2">Password</label>
 
-                            <input id="password" type="password"
-                                class="form-control bg-light shadow-none @error('password') is-invalid @enderror" name="password" required
+                            <input style="letter-spacing: 5px;" id="password" type="password"
+                                class="form-control bg-light shadow-none fs-5 @error('password') is-invalid @enderror" name="password" required
                                 autocomplete="current-password">
 
                             @error('password')
@@ -98,8 +98,8 @@
                         <div class="form-group mb-3">
                             <label for="password" class="mb-2">Confirm Password</label>
 
-                            <input id="password" name="password_confirmation" type="password"
-                                class="form-control bg-light shadow-none" required
+                            <input style="letter-spacing: 5px;" id="password" name="password_confirmation" type="password"
+                                class="form-control bg-light shadow-none fs-5" required
                                 autocomplete="current-password">
 
                         </div>

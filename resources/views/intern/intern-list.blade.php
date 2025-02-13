@@ -14,7 +14,7 @@
             <!-- Search Box -->
             <div class="col-md-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control shadow-none" placeholder="Search">
                     <span class="input-group-text">
                         <img src="{{ asset('assets/search-normal.png') }}" width="24" alt="">
                     </span>
@@ -48,7 +48,7 @@
                             <tr>
                                 <td>{{ $intern->full_name }}</td>
                                 <td>{{ $intern->email }}</td>
-                                <td><a href="" class="text-primary fw-semibold text-decoration-none">Talk</a></td>
+                                <td><a href="{{route('intern.talk', $intern->id)}}" class="text-primary fw-semibold text-decoration-none">Talk</a></td>
                             </tr>
                         @endforeach
 

@@ -17,10 +17,10 @@
             {{-- Preview and uplaod image --}}
             <div class="mt-3">
                 <p class="">Image : </p>
-                <img id="preview-img" src="{{ asset('storage/profile_pictures/' . Auth::user()->profile_picture) }}"
+                <img id="preview-img" src="{{ asset('storage/profile_pictures/' . $user->profile_picture) }}"
                     class="mb-2" width="150">
 
-                <form action="{{ route('image.update', Auth::user()->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('image.update', $user->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="">
@@ -28,9 +28,12 @@
                         <label style="cursor: pointer;" id="profile-label" for="upload_profile"><img
                                 src="{{ asset('assets/dashboard/document-upload.png') }}" class="me-2" width="18"
                                 alt=""> Upload Profile</label>
-                        <input style="display: none" type="file" name="profile_picture" class=""
+                        <input style="display: none" type="file" accept="image/png, image/jpeg, image/jpg" name="profile_picture" class=""
                             id="upload_profile">
 
+                        @error('profile_picture')
+                            <small class="text-danger">{{$message}}</small>
+                        @enderror
 
                     </div>
 
@@ -47,10 +50,10 @@
 
             {{-- Mentor Information --}}
             <div class="">
-                <p>Name : {{ Auth::user()->full_name }}</p>
-                <p>Expertise : {{ Auth::user()->mentor->expertise }}</p>
-                <p>Email : {{ Auth::user()->email }}</p>
-                <p>Company : {{ Auth::user()->mentor->company }}</p>
+                <p>Name : {{ $user->full_name }}</p>
+                <p>Expertise : {{ $user->mentor->expertise }}</p>
+                <p>Email : {{ $user->email }}</p>
+                <p>Company : {{ $user->mentor->company }}</p>
             </div>
             <hr>
         </div>
@@ -64,13 +67,13 @@
                         <p class="modal-title fs-6 fw-semibold" id="exampleModalLabel">Edit Profile</p>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('profile.update', Auth::user()->id) }}" method="post">
+                    <form action="{{ route('profile.update', $user->id) }}" method="post">
                         @csrf
                         @method('put')
                         <div class="form-group mb-3">
                             <label for="" class="mb-2">Name</label>
                             <input type="text" class="form-control" name="name"
-                                value="{{ old('name', Auth::user()->full_name) }}" required>
+                                value="{{ old('name', $user->full_name) }}" required>
                             @error('name')
                                 <small class="text-danger mt-2">{{ $message }}</small>
                             @enderror
@@ -78,7 +81,7 @@
                         <div class="form-group mb-3">
                             <label for="" class="mb-2">Email</label>
                             <input type="email" class="form-control" name="email"
-                                value="{{ old('email', Auth::user()->email) }}" required>
+                                value="{{ old('email', $user->email) }}" required>
                             @error('email')
                                 <small class="text-danger mt-2">{{ $message }}</small>
                             @enderror
@@ -86,7 +89,7 @@
                         <div class="form-group mb-3">
                             <label for="" class="mb-2">Expertise</label>
                             <input type="text" class="form-control" name="expertise"
-                                value="{{ old('expertise', Auth::user()->mentor->expertise) }}">
+                                value="{{ old('expertise', $user->mentor->expertise) }}">
                             @error('expertise')
                                 <small class="text-danger mt-2">{{ $message }}</small>
                             @enderror
@@ -94,7 +97,7 @@
                         <div class="form-group mb-3">
                             <label for="" class="mb-2">Company</label>
                             <input type="text" class="form-control" name="company"
-                                value="{{ old('company', Auth::user()->mentor->company) }}" required>
+                                value="{{ old('company', $user->mentor->company) }}" required>
                             @error('company')
                                 <small class="text-danger mt-2">{{ $message }}</small>
                             @enderror
@@ -115,7 +118,7 @@
 @push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            @if ($errors->any())
+            @if ($errors->hasAny(['name', 'email', 'expertise', 'company']))
                 window.showModal();
             @endif
         });

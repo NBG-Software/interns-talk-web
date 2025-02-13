@@ -12,11 +12,12 @@
             </div>
             <div class="card bg-white py-3 px-4 border-0">
                 <div class="card-body">
-                    <p class="fs-4 fw-bold text-center">Welcome to our Intern Talks</p>
-                    <span>Give a hand to intern and improve your interpersonal and professional skills by helping solve the problems of interns</span>
+                    <p class="fs-4 fw-bold text-center mb-1">Welcome to our Intern Talks</p>
+                    <small class="d-block text-center mb-2 fw-bold fst-italic">Talk & Contribute</small>
+                    <span>Give a hand to your fellows by sharing your experience and providing better roadmap for their profession.  </span>
 
                     <div class="text-center mt-3">
-                        <a href="{{route('register')}}" class="btn btn-outline-primary">Register</a>
+                        <a href="{{route('register')}}" class="btn btn-outline-primary">Register As Mentor</a>
                     </div>
                 </div>
             </div>
