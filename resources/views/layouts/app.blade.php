@@ -19,8 +19,8 @@
 </head>
 
 <body>
-    <div id="app" class="vh-100">
-        <nav class="navbar navbar-expand-md navbar-light bg-white border-0 border-bottom border-black-50">
+    <div id="app" class="vh-100 d-flex flex-column">
+        <nav class="navbar navbar-expand-md navbar-light bg-white border-0 border-bottom border-black-50 sticky-top">
             <div class="container-fluid px-4 py-1">
                 {{-- nav logo --}}
                 <div class="d-flex align-items-center">
@@ -52,8 +52,8 @@
             </div>
         </nav>
 
-        <main class="container-fluid h-100 px-0 d-flex position-relative">
-            <aside class="bg-white h-100 sidebar border-0 border-end border-black-50 p-4">
+        <main class="container-fluid px-0 d-flex position-relative">
+            <aside class="bg-white sidebar h-100 border-0 border-end border-black-50 p-4">
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <a href="{{route('intern.list')}}" class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('intern.list') ? 'btn-secondary' : '' }}">
@@ -82,7 +82,7 @@
                 </ul>
             </aside>
 
-            <div class="container-fluid py-4">
+            <div class="container-fluid py-4 bg-white">
                 {{-- <h4>Nothing here</h4> --}}
                 @yield('content')
             </div>
