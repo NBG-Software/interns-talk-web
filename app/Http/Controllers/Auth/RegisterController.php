@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -49,9 +50,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'profile_picture' => ['required', 'file', 'mimes:jpg,jpeg,png'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'expertise' => ['required', 'string'],
+            'company' => ['required', 'string'],
         ]);
     }
 
@@ -63,10 +68,34 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $newName = '';
+        if(isset($data['profile_picture'])){
+            $newName = uniqid() .'_'. "profile_picture" .'.'. $data['profile_picture']->extension();
+            $data['profile_picture']->storeAs('profile_pictures',$newName);
+        };
+
+
+        $user =  User::create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => 'mentor',
+            'profile_picture' => $newName,
+        ]);
+
+        if($user){
+            $this->create_mentor($data, $user);
+        }
+
+        return $user;
+    }
+
+    public function create_mentor(array $data, $user){
+        Mentor::create([
+            'user_id' => $user->id,
+            'expertise' => $data['expertise'],
+            'company' => $data['company'],
         ]);
     }
 }

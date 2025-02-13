@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
 
@@ -56,5 +57,6 @@ class AppServiceProvider extends ServiceProvider
 
             return Response::json($responseData, $code);
         });
+        Paginator::useBootstrapFive();
     }
 }
