@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chat extends Model
 {
+
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+        ];
+    }
+
     // A chat belongs to one mentor.
     public function mentor()
     {
@@ -22,5 +30,10 @@ class Chat extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function latestMessage()
+    {
+        return $this->hasOne(Message::class)->latestOfMany();
     }
 }

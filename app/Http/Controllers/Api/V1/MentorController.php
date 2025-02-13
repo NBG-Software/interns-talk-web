@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MentorCollection;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -13,11 +15,9 @@ class MentorController extends Controller
 
         try {
 
-            $user = $request->user();
+            $mentorList = User::where('role','mentor')->get();
 
-            $talkedMentorList = 0;
-            $mentor = 0;
-
+            return response()->success($request, new MentorCollection($mentorList), 'Mentor list', 200);
 
         } catch (Exception $e) {
 

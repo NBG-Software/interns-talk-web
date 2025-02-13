@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ChatCollection;
+use App\Http\Resources\ChatResource;
 use App\Models\Chat;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller
 {
-    public function activeChatList(Request $request)
+    public function latestChatList(Request $request)
     {
 
         try {
@@ -18,7 +20,7 @@ class ChatController extends Controller
 
             $chat = Chat::where('user_id', $user->id)->get();
 
-            return response()->success($request, $chat, 'Retrieve chat list successful', 200);
+            return response()->success($request, new ChatCollection($chat), 'Retrieve chat list successful', 200);
 
         } catch (Exception $e) {
 
