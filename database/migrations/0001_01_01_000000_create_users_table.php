@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['mentor', 'intern']);
-            $table->string('profile_picture');
+            $table->string('profile_picture')->nullable();
             $table->softDeletes('deleted_at');
             $table->rememberToken();
             $table->timestamps();
