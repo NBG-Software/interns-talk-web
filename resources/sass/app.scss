@@ -1,8 +1,58 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+html,body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", serif;
+    font-weight: 400;
+}
+
+.sidebar{
+    width : 250px !important;
+    height : 100% !important;
+    display: block;
+    overflow-y: hidden;
+    transition : 0.5s ease;
+    z-index : 9;
+
+    @media (max-width: 767px) {
+        position : absolute;
+        transform: translateX(-250px);
+    }
+
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+
+.nav-mentor{
+    display : block;
+
+    @media (max-width: 767px) {
+        display : none;
+    }
+}
+
+.btn-custom-hover:hover{
+    background-color: $secondary;
+}
+
+.custom-modal{
+    max-width : 400px !important;
+}
+
+.custom-hover:hover{
+    color: $primary !important;
+    font-weight: 600;
+}
+
