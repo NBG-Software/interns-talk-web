@@ -99,7 +99,7 @@
                             <label for="password" class="mb-2">Confirm Password</label>
 
                             <input style="letter-spacing: 5px;" id="password" name="password_confirmation" type="password"
-                                class="form-control bg-light shadow-none fs-5" required
+                                class="form-control bg-light shadow-none fs-5 @error('password') is-invalid @enderror" required
                                 autocomplete="current-password">
 
                         </div>
