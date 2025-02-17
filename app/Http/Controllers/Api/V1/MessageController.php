@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use App\Jobs\ProcessMessageJob;
 use App\Models\Message;
-use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
@@ -14,17 +13,17 @@ class MessageController extends Controller
     {
         $validated = $request->validated();
 
-        // $user = $request->user();
+        $user = $request->user();
 
-        // $userId = $user->id;
-        $userId = 1;
+        $userId = $user->id;
+        // $userId = 1;
 
         $validated['sender_id'] = $userId;
 
-        $messageModel = Message::create($validated);
+        Message::create($validated);
 
-        ProcessMessageJob::dispatch($messageModel->id, $validated['message_text']);
+        ProcessMessageJob::dispatch($validated['chat_id'], $validated['message_text']);
 
-        return response()->success($request, null, 'Message send', 200);
+        return response()->success($request, ['chat_id' => $validated['chat_id']], 'Message send', 200);
     }
 }

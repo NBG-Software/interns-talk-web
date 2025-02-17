@@ -9,6 +9,9 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+
+use function Illuminate\Log\log;
 
 class MessageSent implements ShouldBroadcast
 {
@@ -30,8 +33,14 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            // new PrivateChannel('chat-channel-' . $this->id),
-            new Channel('chat-channel-' . $this->id),
+            new PrivateChannel('chat-channel-' . $this->id),
+            // new Channel('chat-channel-' . $this->id),
         ];
     }
+
+    // Optionally, define a broadcast name if needed:
+        public function broadcastAs()
+        {
+            return 'MessageSent';
+        }
 }

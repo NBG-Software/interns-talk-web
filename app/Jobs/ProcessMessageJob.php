@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Events\MessageSent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 
 class ProcessMessageJob implements ShouldQueue
 {
@@ -23,6 +24,6 @@ class ProcessMessageJob implements ShouldQueue
      */
     public function handle()
     {
-        broadcast(new MessageSent($this->id,$this->message))->toOthers();
+        broadcast(new MessageSent($this->id,$this->message));
     }
 }
