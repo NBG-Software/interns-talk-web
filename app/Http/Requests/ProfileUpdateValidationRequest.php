@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileUpdateValidationRequest extends FormRequest
 {
@@ -21,11 +23,25 @@ class ProfileUpdateValidationRequest extends FormRequest
      */
     public function rules(): array
     {
+        Validator::extend('word_count', function ($attribute, $value, $parameters, $validator) {
+            $wordCount = str_word_count($value);
+            $min = $parameters[0] ?? 2;
+
+            return $wordCount >= $min;
+        });
+
         return [
-            'name' => 'required',
+            'name' => 'required|word_count:2',
             'email' => 'required|email',
             'expertise' => 'required',
             'company' => 'required',
+        ];
+    }
+
+
+    public function messages(){
+        return[
+            'name.word_count' => "You should provide your full name.",
         ];
     }
 }
