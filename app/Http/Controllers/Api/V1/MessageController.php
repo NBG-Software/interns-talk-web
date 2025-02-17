@@ -14,15 +14,16 @@ class MessageController extends Controller
     {
         $validated = $request->validated();
 
-        $user = $request->user();
+        // $user = $request->user();
 
-        $userId = $user->id;
+        // $userId = $user->id;
+        $userId = 1;
 
         $validated['sender_id'] = $userId;
 
-        Message::create($validated);
+        $messageModel = Message::create($validated);
 
-        ProcessMessageJob::dispatch($userId, $validated['message']);
+        ProcessMessageJob::dispatch($messageModel->id, $validated['message_text']);
 
         return response()->success($request, null, 'Message send', 200);
     }
