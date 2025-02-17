@@ -7,6 +7,7 @@ use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -49,14 +50,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'profile_picture' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'profile_picture' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:5120'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'expertise' => ['required', 'string'],
             'company' => ['required', 'string'],
+            'base64_image' => ['nullable'],
         ]);
     }
 
@@ -69,10 +72,30 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $newName = '';
-        if(isset($data['profile_picture'])){
-            $newName = uniqid() .'_'. "profile_picture" .'.'. $data['profile_picture']->extension();
-            $data['profile_picture']->storeAs('profile_pictures',$newName);
+        if (isset($data['profile_picture'])) {
+            $newName = uniqid() . '_' . "profile_picture" . '.' . $data['profile_picture']->extension();
+            $data['profile_picture']->storeAs('profile_pictures', $newName);
+        } elseif (!empty($data['base64_image'])) {
+            $image = $data['base64_image'];
+            $image = preg_replace('/^data:image\/\w+;base64,/', '', $image); // Remove metadata
+            $image = str_replace(' ', '+', $image);
+            $imageData = base64_decode($image);
+
+            $matches = [];
+            if (preg_match('/^data:image\/(\w+);base64,/', $data['base64_image'], $matches)) {
+                $extension = $matches[1]; // This will be "png", "jpeg", "jpg", etc.
+            } else {
+                // Default to "png" if no match is found (could add error handling)
+                $extension = 'png';
+            }
+
+            // Create a unique filename based on the extension
+            $newName = uniqid() . '_profile_picture.' . $extension;
+
+            // Store the image in the storage
+            Storage::put('profile_pictures/' . $newName, $imageData);
         };
+
 
 
         $user =  User::create([
@@ -84,14 +107,15 @@ class RegisterController extends Controller
             'profile_picture' => $newName,
         ]);
 
-        if($user){
+        if ($user) {
             $this->create_mentor($data, $user);
         }
 
         return $user;
     }
 
-    public function create_mentor(array $data, $user){
+    public function create_mentor(array $data, $user)
+    {
         Mentor::create([
             'user_id' => $user->id,
             'expertise' => $data['expertise'],

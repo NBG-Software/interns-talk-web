@@ -24,10 +24,10 @@
             <div class="container-fluid px-4 py-1">
                 {{-- nav logo --}}
                 <div class="d-flex align-items-center">
-                    <img src="{{asset('assets/intern_talk_logo.png')}}" class="me-3" width="50" alt="">
+                    <img src="{{ asset('assets/intern_talk_logo.png') }}" class="me-3" width="50" alt="">
 
                     <a class="py-0" href="{{ url('/') }}">
-                        <img src="{{asset('assets/intern_talk_text.png')}}" width="100" alt="">
+                        <img src="{{ asset('assets/intern_talk_text.png') }}" width="100" alt="">
                     </a>
                 </div>
 
@@ -52,28 +52,33 @@
             </div>
         </nav>
 
-        <main class="container-fluid px-0 d-flex position-relative">
+        <main class="container-fluid px-0 h-100 d-flex position-relative">
             <aside class="bg-white sidebar h-100 border-0 border-end border-black-50 p-4">
                 <ul class="list-unstyled">
                     <li class="mb-2">
-                        <a href="{{route('intern.list')}}" class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('intern.list') ? 'btn-secondary' : '' }}">
-                            <img src="{{asset('assets/dashboard/chart-bar.png')}}" class="me-2" width="15" alt="">
+                        <a href="{{ route('intern.list') }}"
+                            class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('intern.list') ? 'btn-secondary' : '' }}">
+                            <img src="{{ asset('assets/dashboard/chart-bar.png') }}" class="me-2" width="15"
+                                alt="">
                             Intern List
                         </a>
                     </li>
 
                     <li class="mb-2">
-                        <a href="{{route('profile.show')}}" class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('profile.show') ? 'btn-secondary' : '' }}">
-                            <img src="{{asset('assets/dashboard/cog.png')}}" class="me-2" width="15" alt="">
+                        <a href="{{ route('profile.show') }}"
+                            class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('profile.show') ? 'btn-secondary' : '' }}">
+                            <img src="{{ asset('assets/dashboard/cog.png') }}" class="me-2" width="15"
+                                alt="">
                             Edit Profile
                         </a>
                     </li>
 
                     <li class="">
-                        <form action="{{route('logout')}}" method="post" class="">
+                        <form action="{{ route('logout') }}" method="post" class="">
                             @csrf
                             <button class="btn btn-custom-hover  text-start w-100 text-dark fw-bold">
-                                <img src="{{asset('assets/dashboard/logout.png')}}" class="me-2" width="15" alt="">
+                                <img src="{{ asset('assets/dashboard/logout.png') }}" class="me-2" width="15"
+                                    alt="">
                                 Log out
                             </button>
                         </form>
