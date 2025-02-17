@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
 
+    protected $fillable = [
+        'chat_id',
+        'sender_id',
+        'message_text',
+        'message_media',
+    ];
+
+
     protected function casts(): array
     {
         return [

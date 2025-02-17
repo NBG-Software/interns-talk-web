@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\LogoutController;
 use App\Http\Controllers\Api\V1\MentorController;
+use App\Http\Controllers\Api\V1\MessageController;
 use App\Http\Controllers\Api\V1\ProfileUploadController;
 use App\Http\Controllers\Api\V1\RegisterController;
 use App\Http\Controllers\Api\V1\ResetPasswordController;
@@ -32,4 +33,5 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::patch('user',[UserController::class,'edit']);
     Route::post('user/profile',[ProfileUploadController::class, 'profileUpload']);
     Route::get('mentor', [MentorController::class,'index']);
+    Route::post('message',[MessageController::class, 'index']);
 });

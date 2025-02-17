@@ -29,4 +29,6 @@ class ChatController extends Controller
             return response()->error($request, null, 'Internal Server Error', 500);
         }
     }
+
+
 }

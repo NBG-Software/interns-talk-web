@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Chat extends Model
 {
 
+    protected $fillable = [
+        'mentor_id',
+        'user_id',
+    ];
     protected function casts(): array
     {
         return [
