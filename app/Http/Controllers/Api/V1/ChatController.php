@@ -43,7 +43,6 @@ class ChatController extends Controller
                 ->where('mentor_id', $validated['mentor_id'])
                 ->first();
 
-
             if (!$chat) {
                 $chat = Chat::create($validated);
             }
@@ -56,5 +55,15 @@ class ChatController extends Controller
 
             return response()->error($request, null, 'Internal Server Error', 500);
         }
+    }
+
+    public function show(Request $request)
+    {
+        $user = $request->user();
+
+        $chat = Chat::where('user_id', $user->id)->get();
+
+        return response()->success($request,['chat_id' => $chat], "Chat id list", 200);
+
     }
 }

@@ -32,6 +32,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('user', [UserController::class,'index']);
     Route::get('chats/latest', [ChatController::class, 'latestChatList']);
     Route::post('chats', [ChatController::class, 'store']);
+    Route::get('chats', [ChatController::class, 'show']);
     Route::patch('user',[UserController::class,'edit']);
     Route::post('user/profile',[ProfileUploadController::class, 'profileUpload']);
     Route::get('mentor', [MentorController::class,'index']);
