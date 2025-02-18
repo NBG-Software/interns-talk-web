@@ -13,12 +13,15 @@
         <div class="row mb-3 d-flex justify-content-between align-items-center">
             <!-- Search Box -->
             <div class="col-md-3">
-                <div class="input-group">
-                    <input type="text" class="form-control shadow-none" placeholder="Search">
-                    <span class="input-group-text">
+                <form action="{{route('intern.search')}}" method="POST">
+                    @csrf
+                    <div class="input-group">
+                    <input type="text" class="form-control shadow-none" placeholder="Search" name="search">
+                    <button class="input-group-text" type="submit">
                         <img src="{{ asset('assets/search-normal.png') }}" width="24" alt="">
-                    </span>
+                    </button>
                 </div>
+                </form>
             </div>
 
             <!-- Entries Dropdown -->

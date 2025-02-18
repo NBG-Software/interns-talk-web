@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -74,5 +75,12 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany(Message::class, 'sender_id');
+    }
+
+    public function scopeInternSearch(Builder $query, string $search): void
+    {
+        $query->where('first_name','LIKE',"%{$search}%")
+        ->orWhere('last_name', 'LIKE', "%{$search}%")
+        ->orWhere('email', 'LIKE', "%{$search}%");
     }
 }

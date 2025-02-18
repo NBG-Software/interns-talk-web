@@ -17,5 +17,6 @@ Route::middleware('auth')->group(function(){
     Route::put('/profile/image/update/{id}', [ProfileController::class, 'update_img'])->name('image.update');
     Route::get('/intern/list', [App\Http\Controllers\InternController::class, 'index'])->name('intern.list');
     Route::get('/intern/talk/{id}', [App\Http\Controllers\InternController::class, 'talk'])->name('intern.talk');
+    Route::post('/intern/list', [App\Http\Controllers\InternController::class, 'serach'])->name('intern.search');
 });
 
