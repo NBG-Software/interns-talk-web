@@ -20,7 +20,7 @@ class InternController extends Controller
         return view('intern.intern-talk', compact('intern'));
     }
 
-    public function serach(SearchRequest $request){
+    public function search(SearchRequest $request){
 
         $validated = $request->validated();
 

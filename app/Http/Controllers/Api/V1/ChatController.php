@@ -66,4 +66,13 @@ class ChatController extends Controller
         return response()->success($request,['chat_id' => $chat], "Chat id list", 200);
 
     }
+
+    public function rate(Request $request){
+        return [
+            'method' => $request->method(),
+            'url'    => $request->path(),
+            'ip'     => $request->ip(),
+            // you can add more details if needed
+        ];
+    }
 }
