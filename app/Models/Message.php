@@ -13,6 +13,7 @@ class Message extends Model
         'message_media',
     ];
 
+
     protected function casts(): array
     {
         return [

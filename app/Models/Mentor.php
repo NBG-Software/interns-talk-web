@@ -23,7 +23,7 @@ class Mentor extends Model
     // A mentor can have many chats.
     public function chats()
     {
-        return $this->hasMany(Chat::class);
+        return $this->hasMany(Chat::class, 'mentor_id');
     }
 
 }

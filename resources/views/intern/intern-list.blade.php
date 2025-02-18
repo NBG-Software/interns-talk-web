@@ -21,14 +21,30 @@
             </div>
         </div>
 
-        <!-- Entries Dropdown -->
-        <div class="col-md-6 d-flex justify-content-end align-items-center">
-            <select class="form-select w-auto">
-                @for ($i = 10; $i <= 100; $i += 10)
-                    <option value="{{ $i }}">{{ $i }}</option>
-                @endfor
-            </select>
-            <p class="ms-2 mb-0">entries per page</p>
+        <!-- Second Row: Search Box & Entries Dropdown -->
+        <div class="row mb-3 d-flex justify-content-between align-items-center">
+            <!-- Search Box -->
+            <div class="col-md-3">
+                <form action="{{route('intern.search')}}" method="POST">
+                    @csrf
+                    <div class="input-group">
+                    <input type="text" class="form-control shadow-none" placeholder="Search" name="search">
+                    <button class="input-group-text" type="submit">
+                        <img src="{{ asset('assets/search-normal.png') }}" width="24" alt="">
+                    </button>
+                </div>
+                </form>
+            </div>
+
+            <!-- Entries Dropdown -->
+            <div class="col-md-6 d-flex justify-content-end align-items-center">
+                <select class="form-select w-auto">
+                    @for ($i = 10; $i <= 100; $i += 10)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+                <p class="ms-2 mb-0">entries per page</p>
+            </div>
         </div>
     </div>
 

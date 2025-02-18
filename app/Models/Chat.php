@@ -9,6 +9,10 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'mentor_id',
+        'user_id',
+    ];
     protected function casts(): array
     {
         return [

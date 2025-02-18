@@ -18,7 +18,7 @@ class ChatResource extends JsonResource
         return [
             'first_name' => $this->latestMessage?->sender?->first_name,
             'last_name' => $this->latestMessage?->sender?->last_name,
-            'id' => $this->id,
+            'chat_id' => $this->id,
             'message' => $this->latestMessage?->message_text,
             'created_at' => $this->structureDate($this->latestMessage?->created_at),
         ];

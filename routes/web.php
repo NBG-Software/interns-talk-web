@@ -27,6 +27,7 @@ Route::middleware(['auth','no-cache'])->group(function(){
     Route::post('/chat/{id}/message', [App\Http\Controllers\ChatController::class, 'store_message'])->name('message.store');
     Route::post('/chat/{id}/media', [App\Http\Controllers\ChatController::class, 'store_media'])->name('media.store');
     Route::get('/chat/{id}/allmessages', [App\Http\Controllers\ChatController::class, 'messages'])->name('message.all');
+    Route::post('/intern/list', [App\Http\Controllers\InternController::class, 'search'])->name('intern.search');
 });
 
 
