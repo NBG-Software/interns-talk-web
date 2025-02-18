@@ -37,4 +37,5 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('user/profile',[ProfileUploadController::class, 'profileUpload']);
     Route::get('mentor', [MentorController::class,'index']);
     Route::post('message',[MessageController::class, 'index']);
+    Route::get('message',[MessageController::class, 'show']);
 });
