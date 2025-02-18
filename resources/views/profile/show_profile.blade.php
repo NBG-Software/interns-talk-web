@@ -17,7 +17,7 @@
             {{-- Preview and uplaod image --}}
             <div class="mt-3">
                 <p class="">Image : </p>
-                <img id="preview-img" src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('assets/profile_default.png') }}"
+                <img id="preview-img" src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('assets/profile_default.jpg') }}"
                     class="mb-2" width="150">
 
                 <form action="{{ route('image.update', $user->id) }}" method="post" enctype="multipart/form-data">

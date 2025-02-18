@@ -25,4 +25,5 @@ class Mentor extends Model
     {
         return $this->hasMany(Chat::class);
     }
+
 }

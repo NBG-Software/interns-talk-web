@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div id="app" class="vh-100 d-flex flex-column">
+    <div id="app" class="min-vh-100 d-flex flex-column">
         <nav class="navbar navbar-expand-md navbar-light bg-white border-0 border-bottom border-black-50 sticky-top">
             <div class="container-fluid px-4 py-1">
                 {{-- nav logo --}}
@@ -52,8 +52,8 @@
             </div>
         </nav>
 
-        <main class="container-fluid px-0 h-100 d-flex position-relative">
-            <aside class="bg-white sidebar h-100 border-0 border-end border-black-50 p-4">
+        <main class="container-fluid px-0 h-100 d-flex flex-grow-1 position-relative">
+            <aside class="bg-white sidebar h-100 border-0 border-end border-black-50 p-4 position-fixed overflow-auto">
                 <ul class="list-unstyled">
                     <li class="mb-2">
                         <a href="{{ route('intern.list') }}"
@@ -87,7 +87,7 @@
                 </ul>
             </aside>
 
-            <div class="container-fluid py-4 bg-white">
+            <div class="container-fluid d-flex flex-column flex-grow-1 py-4 bg-white content-container">
                 {{-- <h4>Nothing here</h4> --}}
                 @yield('content')
             </div>

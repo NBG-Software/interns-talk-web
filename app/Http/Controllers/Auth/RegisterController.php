@@ -76,26 +76,28 @@ class RegisterController extends Controller
         if (isset($data['profile_picture'])) {
             $newName = uniqid() . '_' . "profile_picture" . '.' . $data['profile_picture']->extension();
             $data['profile_picture']->storeAs('profile_pictures', $newName);
-        } elseif (!empty($data['base64_image'])) {
-            $image = $data['base64_image'];
-            $image = preg_replace('/^data:image\/\w+;base64,/', '', $image); // Remove metadata
-            $image = str_replace(' ', '+', $image);
-            $imageData = base64_decode($image);
+        }
 
-            $matches = [];
-            if (preg_match('/^data:image\/(\w+);base64,/', $data['base64_image'], $matches)) {
-                $extension = $matches[1]; // This will be "png", "jpeg", "jpg", etc.
-            } else {
-                // Default to "png" if no match is found (could add error handling)
-                $extension = 'png';
-            }
+        // elseif (!empty($data['base64_image'])) {
+        //     $image = $data['base64_image'];
+        //     $image = preg_replace('/^data:image\/\w+;base64,/', '', $image); // Remove metadata
+        //     $image = str_replace(' ', '+', $image);
+        //     $imageData = base64_decode($image);
 
-            // Create a unique filename based on the extension
-            $newName = uniqid() . '_profile_picture.' . $extension;
+        //     $matches = [];
+        //     if (preg_match('/^data:image\/(\w+);base64,/', $data['base64_image'], $matches)) {
+        //         $extension = $matches[1]; // This will be "png", "jpeg", "jpg", etc.
+        //     } else {
+        //         // Default to "png" if no match is found (could add error handling)
+        //         $extension = 'png';
+        //     }
 
-            // Store the image in the storage
-            Storage::put('profile_pictures/' . $newName, $imageData);
-        };
+        //     // Create a unique filename based on the extension
+        //     $newName = uniqid() . '_profile_picture.' . $extension;
+
+        //     // Store the image in the storage
+        //     Storage::put('profile_pictures/' . $newName, $imageData);
+        // };
 
 
 

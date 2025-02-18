@@ -87,14 +87,12 @@
                                     name="expertise" value="{{ old('expertise') }}" required autocomplete="expertise"
                                     autofocus>
 
-                            <input style="letter-spacing: 5px;" id="password" name="password_confirmation" type="password"
-                                class="form-control bg-light shadow-none fs-5 @error('password') is-invalid @enderror" required
-                                autocomplete="current-password">
                                 @error('expertise')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
                             </div>
 
                             <div class="form-group mb-3">
@@ -117,6 +115,12 @@
                                 <input style="letter-spacing: 5px;" id="password" name="password_confirmation"
                                     type="password" class="form-control bg-light shadow-none fs-5" required
                                     autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
 
                             </div>
 
@@ -150,51 +154,35 @@
             let preview = document.getElementById('previewImg');
             let upload = document.getElementById('upload_profile');
             let registerForm = document.getElementById('register-form');
-            let imageBase64Input = document.getElementById('image_base64');
+            // let imageBase64Input = document.getElementById('image_base64');
 
-            // Restore the image from localStorage if available
-            if (localStorage.getItem("uploadedImage")) {
-                preview.src = localStorage.getItem("uploadedImage");
-                imageBase64Input.value = localStorage.getItem("uploadedImage");
-            }
-
-            // upload.addEventListener('change', function(event) {
-            //     console.log(event);
-            //     let imageFile = URL.createObjectURL(event.target.files[0]);
-            //     if (imageFile) {
-            //         preview.src = imageFile;
-            //         localStorage.setItem("uploadedImage", imageFile);
-            //         preview.onload = () => URL.revokeObjectURL(imageFile);
-            //     }
-
-            // });
+            // // Restore the image from localStorage if available
+            // if (localStorage.getItem("uploadedImage")) {
+            //     preview.src = localStorage.getItem("uploadedImage");
+            //     imageBase64Input.value = localStorage.getItem("uploadedImage");
+            // }
 
             upload.addEventListener('change', function(event) {
-                let file = event.target.files[0];
-                if (!file) return;
-
-                let reader = new FileReader();
-                reader.readAsDataURL(file); // Convert to Base64
-
-                reader.onload = function() {
-                    let base64Image = reader.result;
-                    preview.src = base64Image;
-                    localStorage.setItem("uploadedImage", base64Image); // Store in LocalStorage
-                    imageBase64Input.value = base64Image; // Set hidden input for submission
-                };
-
+                console.log(event);
+                let imageFile = URL.createObjectURL(event.target.files[0]);
+                if (imageFile) {
+                    preview.src = imageFile;
+                    localStorage.setItem("uploadedImage", imageFile);
+                    preview.onload = () => URL.revokeObjectURL(imageFile);
+                }
 
             });
+
 
             preview.addEventListener('click', function() {
                 upload.click();
             })
 
 
-            // Clear localStorage after form submission (to avoid keeping old images)
-            registerForm.addEventListener("submit", function() {
-                localStorage.removeItem("uploadedImage");
-            });
+            // // Clear localStorage after form submission (to avoid keeping old images)
+            // registerForm.addEventListener("submit", function() {
+            //     localStorage.removeItem("uploadedImage");
+            // });
         });
     </script>
 @endpush

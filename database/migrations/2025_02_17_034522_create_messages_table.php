@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('chat_id');
             $table->foreignId('sender_id');
-            $table->string('message_text');
-            $table->string('message_media');
+            $table->string('message_text')->nullable();
+            $table->string('message_media')->nullable();
             $table->timestamps();
         });
     }
