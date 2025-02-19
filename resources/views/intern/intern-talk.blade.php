@@ -76,7 +76,7 @@
                                         <div class="intern-message">
                                             <small class="mb-2 fw-semibold">{{ $chat->user->full_name }}</small>
                                             <div style="width: fit-content">
-                                                <img src="{{ asset('storage/message_media/' . $msg->message_media) }}"
+                                                <img src="{{ asset('storage/' . $msg->message_media) }}"
                                                     alt="Media Message" class="img-fluid"
                                                     style="max-width: 200px; border-radius: 0 8px 8px 8px;">
                                                 <small
