@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Chat;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
 
@@ -57,6 +60,13 @@ class AppServiceProvider extends ServiceProvider
 
             return Response::json($responseData, $code);
         });
+
         Paginator::useBootstrapFive();
+
+
+        // Authrization for chat room permission
+        Gate::define('permit-chat',function(User $user, Chat $chat){
+            return $user->id == $chat->mentor->user->id;
+        });
     }
 }

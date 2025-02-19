@@ -8,14 +8,17 @@ use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
 {
     public function talk($id){
         $chat = Chat::with('messages')->where('id', $id)->first();
+        if(!Gate::allows('permit-chat', $chat)){
+            abort(403, 'Unauthorized');
+        };
         return view('intern.intern-talk', compact('chat'));
-
     }
 
     public function store_message(Request $request, $id){
@@ -74,9 +77,5 @@ class ChatController extends Controller
     }
 
 
-    public function messages($id){
-        $chat = Chat::findOrFail($id);
-        $messages = Message::where('chat_id', $id)->get()->toArray();
-        return response()->json(['messages' => $messages, 'chat' => $chat]);
-    }
+
 }

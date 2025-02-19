@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,10 @@ Route::middleware(['guest'])->group(function(){
         return view('welcome');
     });
 
+    // Route::get('/', function () {
+    //     return view('intern-password-resetted');
+    // });
+
 });
 
 
@@ -26,7 +31,7 @@ Route::middleware(['auth','no-cache'])->group(function(){
     Route::get('/intern/talk/{id}', [App\Http\Controllers\ChatController::class, 'talk'])->name('intern.talk');
     Route::post('/chat/{id}/message', [App\Http\Controllers\ChatController::class, 'store_message'])->name('message.store');
     Route::post('/chat/{id}/media', [App\Http\Controllers\ChatController::class, 'store_media'])->name('media.store');
-    Route::get('/chat/{id}/allmessages', [App\Http\Controllers\ChatController::class, 'messages'])->name('message.all');
+    Route::get('/chat/{id}/allmessages', [MessageController::class, 'messages'])->name('message.all');
     Route::post('/intern/list', [App\Http\Controllers\InternController::class, 'search'])->name('intern.search');
 });
 

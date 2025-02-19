@@ -27,10 +27,10 @@ class MessageController extends Controller
 
             $validated['sender_id'] = $userId;
 
-            Message::create($validated);
+            $message = Message::create($validated);
 
             // ProcessMessageJob::dispatch($validated['chat_id'], $validated['message_text']);
-            broadcast(new MessageSent($validated['chat_id'], $validated['message_text']));
+            broadcast(new MessageSent($message));
 
             return response()->success($request, ['chat_id' => $validated['chat_id']], 'Message send', 200);
 

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <div class="px-3 h-100">
+    <div class="px-3">
         {{-- breadcrumb routes --}}
-        <div class="row">
-            <div class="card bg-white">
+        <div class="row ">
+            <div class="card bg-white ">
                 <div class="card-body">
                     <a href="{{ route('intern.list') }}" class="text-decoration-none">
                         <img src="{{ asset('assets/dashboard/home-2.png') }}" width="20" alt="">
@@ -96,7 +96,7 @@
                 </div>
 
                 {{-- message box --}}
-                <div class="message-box d-flex flex-column">
+                <div style="overflow-y: scroll" class="message-box vh-75 d-flex flex-column">
 
                 </div>
 
@@ -359,10 +359,13 @@
 
             // Listing real time messages from both mentor and user
             window.Echo.private('chat-channel-{{ $chat->id }}')
-                .listen('MessageSent', (event) => {
+                .listen('.MessageSent', (event) => {
                     console.log(event.message);
                     messages.push(event.message);
                     appendMessageToDOM(event.message);
+
+                    emptyMessageBox.style.display = "none";
+                    emptyMessageBox.classList.remove('d-flex');
                 });
 
         })

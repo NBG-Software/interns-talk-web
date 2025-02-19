@@ -9,17 +9,6 @@
         </div>
     </div>
 
-    <!-- Second Row: Search Box & Entries Dropdown -->
-    <div class="row mb-3 d-flex justify-content-between align-items-center">
-        <!-- Search Box -->
-        <div class="col-md-3">
-            <div class="input-group">
-                <input type="text" class="form-control shadow-none" placeholder="Search">
-                <span class="input-group-text">
-                    <img src="{{ asset('assets/search-normal.png') }}" width="24" alt="">
-                </span>
-            </div>
-        </div>
 
         <!-- Second Row: Search Box & Entries Dropdown -->
         <div class="row mb-3 d-flex justify-content-between align-items-center">
@@ -46,7 +35,7 @@
                 <p class="ms-2 mb-0">entries per page</p>
             </div>
         </div>
-    </div>
+
 
     <!-- Third Row: Table -->
     <div class="row">
