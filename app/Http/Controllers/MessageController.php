@@ -12,9 +12,16 @@ class MessageController extends Controller
 
         $chat = Chat::findOrFail($id);
 
-        $messages = Message::where('chat_id', $id)->get()->toArray();
+        $messages = Message::where('chat_id', $id)
+                            ->get()
+                            ->groupBy(function ($message) {
+                                return date('Y-m-d', strtotime($message->created_at));
+                            })
+                            ->toArray();
 
-        return response()->json(['messages' => $messages, 'chat' => $chat]);
+        // return response()->json(['messages' => $messages, 'chat' => $chat]);
+
+        return view('intern.intern-talk', compact('messages'));
 
     }
 }

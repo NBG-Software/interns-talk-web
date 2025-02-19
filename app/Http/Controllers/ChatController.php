@@ -18,7 +18,13 @@ class ChatController extends Controller
         if(!Gate::allows('permit-chat', $chat)){
             abort(403, 'Unauthorized');
         };
-        return view('intern.intern-talk', compact('chat'));
+
+        $messages = $chat->messages()
+                            ->get()
+                            ->groupBy(function ($message) {
+                                return date('Y-m-d', strtotime($message->created_at));
+                            });
+        return view('intern.intern-talk', compact('chat', 'messages'));
     }
 
     public function store_message(Request $request, $id){

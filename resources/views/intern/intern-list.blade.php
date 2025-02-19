@@ -35,7 +35,12 @@
                 <p class="ms-2 mb-0">entries per page</p>
             </div>
         </div>
-
+    @if (request('search'))
+    <div class="mb-2">
+        <small>Search By : {{request('search')}}</small>
+        <a href="{{route('intern.list')}}" class="btn btn-sm btn-primary ms-2"> Clear</a>
+    </div>
+    @endif
 
     <!-- Third Row: Table -->
     <div class="row">
@@ -50,13 +55,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($chats as $chat)
+                        @forelse ($chats as $chat)
                             <tr>
                                 <td>{{ $chat->user->full_name }}</td>
                                 <td>{{ $chat->user->email }}</td>
                                 <td><a href="{{route('intern.talk', $chat->id)}}" class="text-primary fw-semibold text-decoration-none">Talk</a></td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center">No results found.</td>
+                            </tr>
+                        @endforelse
 
 
                     </tbody>

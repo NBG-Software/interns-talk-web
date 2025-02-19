@@ -43,9 +43,11 @@
 
                 <ul class="navbar-nav ms-auto nav-mentor">
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                Mentor {{ Auth::user()->full_name }}
+                        <li class="nav-item d-md-block d-none">
+                            <a class="nav-link custom-hover" aria-current="page" href="{{route('profile.show')}}">
+                                <img src="{{ Auth::user()->profile_picture ? asset('storage/profile_pictures/' .  Auth::user()->profile_picture) : asset('assets/profile_default.jpg') }}" class="me-2 rounded-circle" width="50"
+                                        alt="">
+                                <span class="mb-0">Mentor {{ Auth::user()->full_name }}</span>
                             </a>
                         </li>
 
@@ -58,7 +60,22 @@
         <main class="container-fluid px-0 h-100 d-flex flex-grow-1 position-relative">
             <aside class="bg-white sidebar h-100 border-0 border-end border-black-50 p-4 position-fixed overflow-auto">
                 <ul class="list-unstyled">
-                    <li class="mb-2">
+                    <li class="mb-2 d-md-none d-block">
+                        <a href="{{ route('profile.show') }}"
+                            class="text-decoration-none">
+                            <div class="d-flex align-items-center">
+                                <div class="">
+                                    <img src="{{ Auth::user()->profile_picture ? asset('storage/profile_pictures/' .  Auth::user()->profile_picture) : asset('assets/profile_default.jpg') }}" class="me-2 rounded-circle" width="50"
+                                        alt="">
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-2">Mentor</p>
+                                    <p class="mb-0 fw-bold">{{Auth::user()->full_name}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="mb-2 mt-md-0 mt-4">
                         <a href="{{ route('intern.list') }}"
                             class="btn btn-custom-hover text-start text-dark fw-bold w-100 {{ request()->fullurl() == route('intern.list') ? 'btn-secondary' : '' }}">
                             <img src="{{ asset('assets/dashboard/chart-bar.png') }}" class="me-2" width="15"
