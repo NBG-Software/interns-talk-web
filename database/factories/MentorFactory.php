@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chat>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Mentor>
  */
-class ChatFactory extends Factory
+class MentorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,9 @@ class ChatFactory extends Factory
     public function definition(): array
     {
         return [
-            'mentor_id' => rand(1,20),
-            'user_id' => rand(1,400),
+            'user_id' => rand(21,40),
+            'expertise' => fake()->jobTitle(),
+            'company' => fake()->company(),
         ];
     }
 }
