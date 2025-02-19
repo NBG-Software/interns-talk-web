@@ -19,7 +19,8 @@ class ChatResource extends JsonResource
             'first_name' => $this->latestMessage?->sender?->first_name,
             'last_name' => $this->latestMessage?->sender?->last_name,
             'chat_id' => $this->id,
-            'message' => $this->latestMessage?->message_text,
+            'message_text' => $this->latestMessage?->message_text,
+            'message_media' => $this->latestMessage->message_media ? asset("storage/{$this->latestMessage->message_media}") : null,
             'created_at' => $this->structureDate($this->latestMessage?->created_at),
         ];
     }

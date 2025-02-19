@@ -12,6 +12,7 @@ use App\Models\Message;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class MessageController extends Controller
 {
@@ -23,9 +24,16 @@ class MessageController extends Controller
             $user = $request->user();
 
             $userId = $user->id;
-            // $userId = 1;
 
             $validated['sender_id'] = $userId;
+
+            if($request->hasFile('message_media'))
+            {
+                $imagePath = Storage::disk('public')->put('message_media', $request->message_media);
+
+                $validated['message_media'] = $imagePath;
+            }
+
 
             $message = Message::create($validated);
 

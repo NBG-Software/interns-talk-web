@@ -22,7 +22,8 @@ class MessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message_text' => 'required|string',
+            'message_media' => 'file|mimes:jpg,jpeg,png|max:5120',
+            'message_text' => 'string',
             'chat_id' => 'required|exists:chats,id',
         ];
     }

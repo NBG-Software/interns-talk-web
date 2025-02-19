@@ -18,6 +18,7 @@ class UserController extends Controller
             $user = $request->user();
 
             return response()->success($request, new UserResource($user), 'User retrieve successful', 200);
+
         } catch (Exception $e) {
 
             Log::error($e->getMessage());

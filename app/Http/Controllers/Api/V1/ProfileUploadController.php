@@ -24,13 +24,14 @@ class ProfileUploadController extends Controller
 
             }
 
-            $imagePath = Storage::disk('public')->put('profile_picture', $request->profile_picture);
+            $imagePath = Storage::disk('public')->put('profile_pictures', $request->profile_picture);
 
             $user->profile_picture = $imagePath;
 
             $user->save();
 
             return response()->success($request, null, 'Profile upload successful', 200);
+
         } catch (Exception $e) {
 
             Log::error($e->getMessage());

@@ -19,7 +19,7 @@ class MentorResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'id' => $this->id,
-            'image' => $this->profile_picture ? asset("storage/{$this->profile_picture}") : null,
+            'image' => $this->profile_picture ? asset("storage/profile_pictures/{$this->profile_picture}") : null,
             'company' => $this->mentor?->company,
             'expertise' => $this->mentor?->expertise,
         ];
