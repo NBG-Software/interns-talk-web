@@ -10,7 +10,7 @@
                     class="d-flex btn btn-white align-items-center border border-0" href="">
                     <img src="{{ asset('assets/dashboard/edit.png') }}" class="me-1" width="20" height="20"
                         alt="">
-                    <span>Edit</span>
+                    <span class="custom-hover">Edit</span>
                 </button>
             </div>
 
@@ -25,8 +25,9 @@
                     @method('put')
                     <div class="">
 
-                        <label style="cursor: pointer;" id="profile-label" for="upload_profile"><img
-                                src="{{ asset('assets/dashboard/document-upload.png') }}" class="me-2" width="18"
+                        <label style="cursor: pointer;" class="custom-hover" id="profile-label" for="upload_profile">
+                            <img
+                                src="{{ asset('assets/dashboard/document-upload.png') }}" class="me-2 " width="18"
                                 alt=""> Upload Profile</label>
                         <input style="display: none" type="file" accept="image/png, image/jpeg, image/jpg" name="profile_picture" class=""
                             id="upload_profile">
