@@ -8,6 +8,7 @@ use App\Http\Requests\MessageHistoryRequest;
 use App\Http\Requests\MessageRequest;
 use App\Http\Resources\MessageCollection;
 use App\Jobs\ProcessMessageJob;
+use App\Models\Chat;
 use App\Models\Message;
 use Exception;
 use Illuminate\Http\Request;
@@ -24,6 +25,16 @@ class MessageController extends Controller
             $user = $request->user();
 
             $userId = $user->id;
+
+            $chat = Chat::find($validated['chat_id']);
+
+            if (!$chat) {
+                return response()->error($request, null, 'Chat not found', 404);
+            }
+
+            if($chat->user_id !== $userId){
+                return response()->error($request, null, 'Unauthorized access', 403);
+            }
 
             $validated['sender_id'] = $userId;
 

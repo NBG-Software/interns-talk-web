@@ -16,12 +16,13 @@ class ChatResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'first_name' => $this->latestMessage?->sender?->first_name,
-            'last_name' => $this->latestMessage?->sender?->last_name,
+            'first_name' => $this->mentor->user->first_name,
+            'last_name' => $this->mentor->user->last_name,
+            'mentor_id' => $this->mentor->id,
             'chat_id' => $this->id,
             'message_text' => $this->latestMessage?->message_text,
-            'message_media' => $this->latestMessage->message_media ? asset("storage/{$this->latestMessage->message_media}") : null,
-            'created_at' => $this->structureDate($this->latestMessage?->created_at),
+            'message_media' => $this->latestMessage?->message_media ? asset("storage/{$this->latestMessage->message_media}") : null,
+            'created_at' => $this->latestMessage?->created_at,
         ];
     }
 
