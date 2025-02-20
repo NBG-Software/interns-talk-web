@@ -20,13 +20,13 @@
         {{-- chatroom --}}
 
         {{-- messsages container --}}
-        <div style="display : block;" class="message-container row mt-3 h-auto">
-            <div style="background-color: #F6F6F6;" class="py-4 px-3 px-md-5 position-relative">
+        <div style="display : block;" class="message-container row mt-3 h-100">
+            <div style="background-color: #F6F6F6;" class="py-4 px-3 px-md-5 d-flex flex-column">
                 <p class="fw-bold ">{{ $chat->user->full_name }}</p>
 
                 {{-- message box --}}
 
-                <div style="overflow-y: scroll" class="message-box vh-75 d-flex flex-column d-block">
+                <div style="overflow-y: scroll; height : calc(100vh - 400px);" class="message-box flex-grow-1 d-flex flex-column d-block">
                     @if (count($messages) == 0)
                         <div class="d-flex flex-column justify-content-center align-items-center empty-message-box">
                             <img src="{{ asset('assets/dashboard/chat_cat.png') }}" width="80" alt="">
@@ -89,8 +89,9 @@
                             @endforeach
                         @endforeach
                     @endif
-                </div>
 
+
+                </div>
 
                 {{-- write message input  --}}
                 <div style="background-color: #F6F6F6;" class=" mt-2 z-3 sticky-bottom pb-3">
@@ -102,19 +103,17 @@
                         @csrf
                     </form>
                     <div class="form-group">
-                        <textarea name="message_text" class="form-control p-3" form="send-message" id="message-text-area" rows="3"
+                        <textarea name="message_text" class="form-control p-3" form="send-message" id="message-text-area" rows="2"
                             placeholder="Write a message for this intern"></textarea>
                     </div>
-                    <div class="message-image mt-2">
-                        <img id="preview-img" src="" class="mb-2" width="80">
+                    <div class="message-image">
+                        <img id="preview-img" src="" class="my-2" width="80">
                     </div>
-                    <div class="mt-3 d-flex">
+                    <div class="d-flex">
                         {{-- sending media message --}}
                         <form class="d-inline-block" id="uploadMedia">
                             @csrf
-
                             <div class="">
-
                                 <label style="cursor: pointer;" id="message-photo" class="btn btn-primary"
                                     for="message-media">
                                     <img src="{{ asset('assets/dashboard/document-upload.png') }}" class="me-2"
@@ -139,14 +138,15 @@
                         </form>
                         {{-- <button type="submit" form="send-message" class="btn btn-primary ms-2">Send Message</button> --}}
                         <button type="submit" form="send-message" id="send-message-btn"
-                                    class="ms-2 btn btn-primary rounded-1 d-flex justify-content-center align-items-center">
-                                    <span id="spinner" class="spinner-border spinner-border-sm me-3"
-                                    style="display: none" aria-hidden="true"></span>
-                                    <p class="mb-0">Send Message</p>
+                            class="ms-2 btn btn-primary rounded-1 d-flex justify-content-center align-items-center">
+                            <span id="spinner6" class="spinner-border spinner-border-sm me-3" style="display: none"
+                                aria-hidden="true"></span>
+                            <p class="mb-0">Send Message</p>
                         </button>
                     </div>
 
                 </div>
+
             </div>
         </div>
 
@@ -158,12 +158,14 @@
 @push('js')
     <script type="module">
         document.addEventListener('DOMContentLoaded', async function() {
+
             let emptyMessageBox = document.querySelector('.empty-message-box');
             // for uploading media message
             let mediaMessageUpload = document.getElementById('uploadMedia');
 
             // for pushing messages
             let messageBox = document.querySelector('.message-box');
+            messageBox.scrollTop = messageBox.scrollHeight;
             // current chat room
             let chat_user_name = "{{ $chat->user->full_name }}";
             // media message validation error
@@ -274,18 +276,18 @@
             // }
 
 
-            textArea.addEventListener('keydown', function(){
-                if (event.key === "Enter" ) {
-                event.preventDefault();
-                sendMessageForm.requestSubmit();
-            }
+            textArea.addEventListener('keydown', function() {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    sendMessageForm.requestSubmit();
+                }
             })
 
             // send text message
             sendMessageForm.addEventListener("submit", async function(e) {
 
                 e.preventDefault();
-                isLoading(event, 'send-message-btn', 'spinner', true);
+                isLoading(event, 'send-message-btn', 'spinner6', true);
 
                 let form = this;
                 let formData = new FormData(form);
@@ -310,7 +312,7 @@
 
                     console.log("Message sent successfully:", data);
                     form.reset();
-                    isLoading(event, 'send-message-btn','spinner' , false);
+                    isLoading(event, 'send-message-btn', 'spinner6', false);
 
                 } catch (error) {
                     console.error("Error sending message:", error);
@@ -368,8 +370,9 @@
                         emptyMessageBox.classList.remove('d-flex');
                     }
 
+                    messageBox.scrollTop = messageBox.scrollHeight;
 
-            });
+                });
 
         })
     </script>

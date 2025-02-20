@@ -58,7 +58,7 @@
                             @forelse ($chats as $chat)
                                 <tr>
                                     <td>{{ $chat->user->full_name }}</td>
-                                    <td>{{ $chat->user->email }}</td>
+                                    <td class="text-wrap">{{ $chat->user->email }}</td>
                                     <td>
                                         <a id="link-{{ $chat->id }}" data-chat-id="{{ $chat->id }}"
                                             href="{{ route('intern.talk', $chat->id) }}"
