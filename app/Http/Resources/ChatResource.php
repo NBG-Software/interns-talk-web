@@ -18,6 +18,7 @@ class ChatResource extends JsonResource
         return [
             'first_name' => $this->mentor->user->first_name,
             'last_name' => $this->mentor->user->last_name,
+            'image' => $this->mentor->user->profile_picture ? asset("storage/profile_pictures/{$this->mentor->user->profile_picture}") : null,
             'mentor_id' => $this->mentor->id,
             'chat_id' => $this->id,
             'message_text' => $this->latestMessage?->message_text,
