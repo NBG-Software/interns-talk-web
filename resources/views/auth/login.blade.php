@@ -69,7 +69,12 @@
                                 @endif
                             </div>
 
+
                             <div class="mb-3">
+                                <a type="button" class="text-dark text-decoration-none custom-hover" href="{{ route('welcome') }}">
+                                    Home
+                                </a>
+                                ||
                                 <a type="button" class="text-dark text-decoration-none custom-hover" href="{{ route('register') }}">
                                     Don't have an account?
                                 </a>

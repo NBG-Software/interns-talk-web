@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="col-6">
                                         <input type="text" name="last_name"
-                                            class="form-control bg-light shadow-none @error('last_name') is-invalid @enderror"
+                                            class="form-control py-2 bg-light shadow-none @error('last_name') is-invalid @enderror"
                                             value="{{ old('last_name') }}" required placeholder="Last">
                                     </div>
                                 </div>
@@ -125,6 +125,11 @@
                             </div>
 
                             <div class="mb-3">
+                                <a type="button" class="text-dark text-decoration-none custom-hover"
+                                    href="{{ route('welcome') }}">
+                                    Home
+                                </a>
+                                ||
                                 <a type="button" class="text-dark text-decoration-none custom-hover"
                                     href="{{ route('login') }}">
                                     Already have an account?
