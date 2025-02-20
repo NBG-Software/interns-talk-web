@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <div id="app" class="min-vh-100 d-flex flex-column">
+    <div style="overflow-y: hidden;" id="app" class="vh-100 d-flex flex-column">
         <nav class="navbar navbar-expand-md navbar-light bg-white border-0 border-bottom border-black-50 sticky-top">
             <div class="container-fluid px-4 py-1">
                 {{-- nav logo --}}
@@ -45,7 +45,7 @@
                     @auth
                         <li class="nav-item d-md-block d-none">
                             <a class="nav-link custom-hover" aria-current="page" href="{{route('profile.show')}}">
-                                <img src="{{ Auth::user()->profile_picture ? asset('storage/profile_pictures/' .  Auth::user()->profile_picture) : asset('assets/profile_default.jpg') }}" class="me-2 rounded-circle" width="50"
+                                <img src="{{ Auth::user()->profile_picture ? asset('storage/profile_pictures/' .  Auth::user()->profile_picture) : asset('assets/profile_default.jpg') }}" class="me-2 rounded-circle" width="30"
                                         alt="">
                                 <span class="mb-0">Mentor {{ Auth::user()->full_name }}</span>
                             </a>
