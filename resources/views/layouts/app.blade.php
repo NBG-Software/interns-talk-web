@@ -15,7 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
      {{-- favicon --}}
-     <link rel="icon" href="{{URL::asset('intern.png')}}" type="image/png">
+     <link rel="icon" href="{{URL::asset('intern.png')}}" type="image/png" sizes="192x192">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])

@@ -102,7 +102,7 @@
                         @csrf
                     </form>
                     <div class="form-group">
-                        <textarea name="message_text" class="form-control p-3" form="send-message" id="" rows="3"
+                        <textarea name="message_text" class="form-control p-3" form="send-message" id="message-text-area" rows="3"
                             placeholder="Write a message for this intern"></textarea>
                     </div>
                     <div class="message-image mt-2">
@@ -137,7 +137,13 @@
                                 <p class="mb-0">Upload</p>
                             </button>
                         </form>
-                        <button type="submit" form="send-message" class="btn btn-primary ms-2">Send Message</button>
+                        {{-- <button type="submit" form="send-message" class="btn btn-primary ms-2">Send Message</button> --}}
+                        <button type="submit" form="send-message" id="send-message-btn"
+                                    class="ms-2 btn btn-primary rounded-1 d-flex justify-content-center align-items-center">
+                                    <span id="spinner" class="spinner-border spinner-border-sm me-3"
+                                    style="display: none" aria-hidden="true"></span>
+                                    <p class="mb-0">Send Message</p>
+                        </button>
                     </div>
 
                 </div>
@@ -170,6 +176,8 @@
             let sendBtn = document.getElementById('send-btn')
             let messageLabel = document.getElementById('message-photo')
             let preview = document.getElementById('preview-img')
+            let sendMessageForm = document.getElementById("send-message")
+            let textArea = document.getElementById("message-text-area")
 
             // media message photo pre-upload
             messageMedia.addEventListener('change', function(event) {
@@ -265,9 +273,19 @@
             //     emptyMessageBox.classList.remove('d-flex');
             // }
 
+
+            textArea.addEventListener('keydown', function(){
+                if (event.key === "Enter" ) {
+                event.preventDefault();
+                sendMessageForm.requestSubmit();
+            }
+            })
+
             // send text message
-            document.getElementById("send-message").addEventListener("submit", async function(e) {
+            sendMessageForm.addEventListener("submit", async function(e) {
+
                 e.preventDefault();
+                isLoading(event, 'send-message-btn', 'spinner', true);
 
                 let form = this;
                 let formData = new FormData(form);
@@ -292,6 +310,7 @@
 
                     console.log("Message sent successfully:", data);
                     form.reset();
+                    isLoading(event, 'send-message-btn','spinner' , false);
 
                 } catch (error) {
                     console.error("Error sending message:", error);
@@ -343,7 +362,6 @@
             window.Echo.private('chat-channel-{{ $chat->id }}')
                 .listen('.MessageSent', (event) => {
                     console.log(event.message);
-                    // messages.push(event.message);
                     appendMessageToDOM(event.message);
                     if (emptyMessageBox) {
                         emptyMessageBox.style.display = "none";
@@ -351,7 +369,7 @@
                     }
 
 
-                });
+            });
 
         })
     </script>

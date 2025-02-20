@@ -14,7 +14,7 @@ Auth::routes();
 Route::middleware(['guest'])->group(function(){
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('welcome');
 
     // Route::get('/', function () {
     //     return view('intern-password-resetted');

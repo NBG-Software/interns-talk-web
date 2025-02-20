@@ -19,11 +19,19 @@ window.Echo = new Echo({
 
 
 // Loading feature for login,register,forgot/reset password
-window.isLoading = function(event, button, spinner='spinner'){
+window.isLoading = function(event, button, spinner='spinner', loading="true"){
     let targetBtn = document.getElementById(button)
     let spinnerBtn = document.getElementById(spinner)
-    targetBtn.disabled = true
-    spinnerBtn.style.display = "inline-block"
+
+    if(loading){
+        spinnerBtn.style.display = "inline-block"
+        targetBtn.disabled = true
+
+    }else{
+        targetBtn.disabled = false
+        spinnerBtn.style.display = "none"
+    }
+
 };
 
 window.showModal = () => {

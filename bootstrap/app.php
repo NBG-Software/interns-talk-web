@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CustomRedirectIfAuthenticated;
 use App\Http\Middleware\NoCacheHeader;
 use App\Http\Middleware\NoCacheHeaders;
 use Illuminate\Foundation\Application;
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'no-cache' => NoCacheHeader::class,
+            'guest' => CustomRedirectIfAuthenticated::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
