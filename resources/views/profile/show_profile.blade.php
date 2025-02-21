@@ -3,6 +3,7 @@
 @section('content')
     <div class="px-2">
         <div class="">
+            {{-- tab bar with edit button modal --}}
             <div class="d-flex align-items-center">
                 <p class="fs-5 fw-medium mb-0 me-3">Mentor Detail</p>
                 {{-- Button trigger Modal --}}
@@ -14,7 +15,7 @@
                 </button>
             </div>
 
-            {{-- Preview and uplaod image --}}
+            {{-- Preview and upload image --}}
             <div class="mt-3">
                 <p class="">Image : </p>
                 <img id="preview-img" src="{{ $user->profile_picture ? asset('storage/profile_pictures/' . $user->profile_picture) : asset('assets/profile_default.jpg') }}"
@@ -59,7 +60,7 @@
             <hr>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal for updating mentor information -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             <div class="modal-dialog custom-modal modal-dialog-centered px-lg-0 px-3">
@@ -90,7 +91,7 @@
                         <div class="form-group mb-3">
                             <label for="" class="mb-2">Expertise</label>
                             <input type="text" class="form-control" name="expertise"
-                                value="{{ old('expertise', $user->mentor->expertise) }}">
+                                value="{{ old('expertise', $user->mentor->expertise) }}" required>
                             @error('expertise')
                                 <small class="text-danger mt-2">{{ $message }}</small>
                             @enderror
@@ -117,6 +118,7 @@
 @endsection
 
 @push('js')
+    {{-- show edit form model when there is validation errors --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if ($errors->hasAny(['name', 'email', 'expertise', 'company']))
@@ -127,6 +129,7 @@
 @endpush
 
 @push('js')
+    {{-- adding dynamic loading features for two forms btns --}}
     <script type="module">
         document.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -149,6 +152,7 @@
 @endpush
 
 @push('js')
+        {{-- creating image url for preview image --}}
     <script>
         let imgForm = document.getElementById('img-form')
         let imgUpdate = document.getElementById('upload_profile')

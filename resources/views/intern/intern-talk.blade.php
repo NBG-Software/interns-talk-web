@@ -22,17 +22,19 @@
         {{-- messsages container --}}
         <div style="display : block;" class="message-container row mt-3 h-100">
             <div style="background-color: #F6F6F6;" class="py-4 px-3 px-md-5 d-flex flex-column">
+
                 <p class="fw-bold ">{{ $chat->user->full_name }}</p>
 
                 {{-- message box --}}
-
                 <div style="overflow-y: scroll; height : calc(100vh - 400px);" class="message-box flex-grow-1 d-flex flex-column d-block">
+                    {{-- show empty message container  --}}
                     @if (count($messages) == 0)
                         <div class="d-flex flex-column justify-content-center align-items-center empty-message-box">
                             <img src="{{ asset('assets/dashboard/chat_cat.png') }}" width="80" alt="">
                             <p class="mt-2 fw-semibold text-black-50">There is no message yet</p>
                         </div>
                     @endif
+                    {{-- show mutual conversation messages and photos --}}
                     @if (count($messages) != 0)
                         @foreach ($messages as $date => $msgs)
                             <p class="text-center fw-bold text-black-50 mb-0">{{ $date }}</p>
@@ -95,10 +97,13 @@
 
                 {{-- write message input  --}}
                 <div style="background-color: #F6F6F6;" class=" mt-2 z-3 sticky-bottom pb-3">
-                    {{-- sending text message --}}
+
+                    {{-- sending validation error message for text message --}}
                     <div class="">
                         <small id="error-message" class="text-danger"></small>
                     </div>
+
+                    {{-- message text form that avoid form conflict --}}
                     <form id="send-message">
                         @csrf
                     </form>
@@ -109,6 +114,7 @@
                     <div class="message-image">
                         <img id="preview-img" src="" class="my-2" width="80">
                     </div>
+
                     <div class="d-flex">
                         {{-- sending media message --}}
                         <form class="d-inline-block" id="uploadMedia">
@@ -136,7 +142,8 @@
                                 <p class="mb-0">Upload</p>
                             </button>
                         </form>
-                        {{-- <button type="submit" form="send-message" class="btn btn-primary ms-2">Send Message</button> --}}
+
+                        {{-- submit btn for sending text message --}}
                         <button type="submit" form="send-message" id="send-message-btn"
                             class="ms-2 btn btn-primary rounded-1 d-flex justify-content-center align-items-center">
                             <span id="spinner6" class="spinner-border spinner-border-sm me-3" style="display: none"
@@ -165,6 +172,7 @@
 
             // for pushing messages
             let messageBox = document.querySelector('.message-box');
+
             messageBox.scrollTop = messageBox.scrollHeight;
             // current chat room
             let chat_user_name = "{{ $chat->user->full_name }}";
@@ -193,6 +201,8 @@
                 messageLabel.style.display = "none";
             })
 
+
+            // format time for frontend messages  pushed by echo
             function formatTime(time) {
                 let date = new Date(time.replace(' ', 'T'));
                 let hours = String(date.getHours()).padStart(2, '0');
@@ -207,7 +217,7 @@
                 return formattedTime;
             }
 
-
+            // pushing messages to dom
             function appendMessageToDOM(message) {
                 let messageHTML = "";
 
@@ -249,7 +259,7 @@
                             <div class="intern-message">
                                 <small class="mb-2 fw-semibold">${chat_user_name}</small>
                                 <div style="width: fit-content">
-                                    <img src="/storage/message_media/${message.message_media}" alt="Media Message" class="img-fluid" style="max-width: 200px; border-radius: 0 8px 8px 8px;">
+                                    <img src="/storage/${message.message_media}" alt="Media Message" class="img-fluid" style="max-width: 200px; border-radius: 0 8px 8px 8px;">
                                     <small class="d-block text-end fw-bold fst-italic text-black-50 mt-1">${formatTime(message.created_at)}</small>
                                 </div>
                             </div>
@@ -264,18 +274,7 @@
 
             }
 
-
-            // toggle message box and empty message box
-            // if (messages.length === 0) {
-            //     messageBox.style.display = "none";
-            //     emptyMessageBox.style.display = "block";
-            // } else {
-            //     messageBox.style.display = "block";
-            //     emptyMessageBox.style.display = "none";
-            //     emptyMessageBox.classList.remove('d-flex');
-            // }
-
-
+            // mouse enter submit for message text
             textArea.addEventListener('keydown', function() {
                 if (event.key === "Enter") {
                     event.preventDefault();
@@ -287,6 +286,7 @@
             sendMessageForm.addEventListener("submit", async function(e) {
 
                 e.preventDefault();
+
                 isLoading(event, 'send-message-btn', 'spinner6', true);
 
                 let form = this;
@@ -309,8 +309,6 @@
 
                     // emptyMessageBox.style.display = "none";
                     // emptyMessageBox.classList.remove('d-flex');
-
-                    console.log("Message sent successfully:", data);
                     form.reset();
                     isLoading(event, 'send-message-btn', 'spinner6', false);
 
@@ -344,8 +342,6 @@
 
                     // emptyMessageBox.style.display = "none";
                     // emptyMessageBox.classList.remove('d-flex');
-
-                    console.log("Message sent successfully:", data);
                     form.reset();
                     preview.src = "";
                     sendBtn.style.display = "none";

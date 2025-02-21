@@ -11,19 +11,23 @@ use Illuminate\Support\Facades\DB;
 
 class InternController extends Controller
 {
+    // Return current mentor's chatrooms to list the interns that has conversation with
     public function chat_interns(){
         $mentor = Auth::user()->mentor;
-        $chats = $mentor->chats;
+        $chats = $mentor->chats()->latest('id')->get();
 
         return view('intern.intern-list', compact('chats'));
     }
 
 
+    // search specific interns who has conversation with current mentor
     public function search(SearchRequest $request){
 
         $validated = $request->validated();
+        // remove space from fullname
         $search = str_replace(' ', '', $validated['search']);
 
+        // find the users with search name
         $users = User::where('first_name','LIKE',"%{$search}%")
                     ->orWhere('last_name', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%")
@@ -32,10 +36,10 @@ class InternController extends Controller
 
         $mentor = Auth::user()->mentor;
 
+        // then retrieve chats with the matched users that has conversation with current mentor id
         $chats = Chat::where('mentor_id', $mentor->id)
                         ->whereIn('user_id', $users)->get();
 
-        // $interns = User::internSearch($validated['search'])->orderBy('created_at','desc')->paginate(10);
 
         return view('intern.intern-list', compact('chats'));
     }

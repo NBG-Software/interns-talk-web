@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
 {
-    public function talk($id){
+    public function fetch_messages($id){
         $chat = Chat::with('messages')->where('id', $id)->first();
         if(!Gate::allows('permit-chat', $chat)){
             abort(403, 'Unauthorized');

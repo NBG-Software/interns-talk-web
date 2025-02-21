@@ -28,10 +28,9 @@ Route::middleware(['auth','no-cache'])->group(function(){
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/image/update/{id}', [ProfileController::class, 'update_img'])->name('image.update');
     Route::get('/intern/list', [App\Http\Controllers\InternController::class, 'chat_interns'])->name('intern.list');
-    Route::get('/intern/talk/{id}', [App\Http\Controllers\ChatController::class, 'talk'])->name('intern.talk');
-    Route::post('/chat/{id}/message', [App\Http\Controllers\ChatController::class, 'store_message'])->name('message.store');
-    Route::post('/chat/{id}/media', [App\Http\Controllers\ChatController::class, 'store_media'])->name('media.store');
-    Route::get('/chat/{id}/allmessages', [MessageController::class, 'messages'])->name('message.all');
+    Route::get('/intern/talk/{id}', [App\Http\Controllers\MessageController::class, 'fetch_messages'])->name('intern.talk');
+    Route::post('/chat/{id}/message', [App\Http\Controllers\MessageController::class, 'store_message'])->name('message.store');
+    Route::post('/chat/{id}/media', [App\Http\Controllers\MessageController::class, 'store_media'])->name('media.store');
     Route::post('/intern/list', [App\Http\Controllers\InternController::class, 'search'])->name('intern.search');
 });
 

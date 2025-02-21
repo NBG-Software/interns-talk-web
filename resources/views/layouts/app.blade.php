@@ -57,7 +57,10 @@
             </div>
         </nav>
 
+        {{-- main container including sidebar and content for different web pages --}}
         <main class="container-fluid px-0 h-100 d-flex flex-grow-1 position-relative">
+
+            {{-- sidebar --}}
             <aside class="bg-white sidebar h-100 border-0 border-end border-black-50 p-4 position-fixed overflow-auto">
                 <ul class="list-unstyled">
                     <li class="mb-2 d-md-none d-block">
@@ -107,6 +110,7 @@
                 </ul>
             </aside>
 
+            {{-- main container content for pages --}}
             <div class="container-fluid d-flex flex-column flex-grow-1 py-4 bg-white content-container">
                 {{-- <h4>Nothing here</h4> --}}
                 @yield('content')

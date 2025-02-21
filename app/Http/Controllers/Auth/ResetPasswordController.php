@@ -128,13 +128,14 @@ class ResetPasswordController extends Controller
 
         $user->save();
 
-        if($user->role == 'intern'){
-            return view('intern-password-resetted');
+        if($user->role == "mentor"){
+            dd("this worked");
+            event(new PasswordReset($user));
+
+            $this->guard()->login($user);
         }
+        return view('intern-password-resetted');
 
-        event(new PasswordReset($user));
-
-        $this->guard()->login($user);
     }
 
     /**

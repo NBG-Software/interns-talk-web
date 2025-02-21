@@ -26,15 +26,17 @@
             </div>
 
             <!-- Entries Dropdown -->
-            <div class="col-md-6 d-flex justify-content-end align-items-center">
+            {{-- <div class="col-md-6 d-flex justify-content-end align-items-center">
                 <select class="form-select w-auto">
                     @for ($i = 10; $i <= 100; $i += 10)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
                 </select>
                 <p class="ms-2 mb-0">entries per page</p>
-            </div>
+            </div> --}}
         </div>
+
+        {{-- show searched by name --}}
         @if (request('search'))
             <div class="mb-2">
                 <small>Search By : {{ request('search') }}</small>
@@ -42,11 +44,11 @@
             </div>
         @endif
 
-        <!-- Third Row: Table -->
+        <!-- Third Row: Intern List Table -->
         <div class="row">
             <div class="col-12">
-                <div class="table-responsive">
-                    <table class="table table-striped table-borderless">
+                <div class="table-responsive" style="height : calc(100vh - 300px); overflow-y: auto;">
+                    <table class="table table-striped table-borderless ">
                         <thead class="">
                             <tr>
                                 <th>Name</th>
@@ -59,6 +61,7 @@
                                 <tr>
                                     <td>{{ $chat->user->full_name }}</td>
                                     <td class="text-wrap">{{ $chat->user->email }}</td>
+                                    {{-- add new  message signal to Talk button --}}
                                     <td>
                                         <a id="link-{{ $chat->id }}" data-chat-id="{{ $chat->id }}"
                                             href="{{ route('intern.talk', $chat->id) }}"
@@ -69,9 +72,10 @@
                                         </a>
                                     </td>
                                 </tr>
+
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center">No results found.</td>
+                                    <td colspan="3" class="text-center">No intern list yet.</td>
                                 </tr>
                             @endforelse
 
@@ -85,10 +89,16 @@
 @endsection
 
 @push('js')
+
+    {{-- listening events for new messages for individual chat and store message-arrived
+    chatId to local storage for data remainance and when user click specific Talk button link,
+    relative chatId from storage will be cleared and certain ui update will be applied.  --}}
+
     <script type="module">
         let chats = @json($chats);
 
         chats.forEach(chat => {
+            // listening new message event and stored in local server
             window.Echo.private(`chat-channel-${chat.id}`)
                 .listen('.MessageSent', (event) => {
                     console.log(event.message);
@@ -101,13 +111,7 @@
 
         });
 
-
-        // chats.forEach(chat=>{
-        //     if( localStorage.getItem(`chat_${chat.id}`)){
-        //         document.getElementById(`event-badge-${localStorage.getItem(`chat_${chat.id}`)}`).classList.remove('d-none')
-        //     }
-        // })
-
+        // in page refresh, new message signal will still be triggered
         chats.forEach(chat => {
             let storedChatId = localStorage.getItem(`chat_${chat.id}`);
             if (storedChatId) {
@@ -119,16 +123,14 @@
                 }
             }
 
+            // when Talk link is clicked, chatId will be cleared and new message signal disappers.
             let link = document.getElementById(`link-${chat.id}`);
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                let chatId = this.dataset.chatId; // Assuming you store chat ID in a data attribute
+                let chatId = this.dataset.chatId;
                 console.log("Clicked Chat ID:", chatId);
 
-                // Perform your function (e.g., remove chat ID from localStorage)
                 localStorage.removeItem(`chat_${chatId}`);
-
-                // Optionally hide the badge
                 let badge = document.getElementById(`event-badge-${chatId}`);
                 if (badge) {
                     badge.classList.add('d-none');
@@ -137,18 +139,16 @@
                 setTimeout(() => {
                     window.location.href = this.href;
                 }, 50);
-                // Now navigate to the original href
-                // window.location.href = this.href;
             })
 
         });
 
 
-        function removeBadge(id) {
-            if (localStorage.getItem(`chat_${id}`)) {
-                localStorage.removeItem(`chat_${id}`)
-                document.getElementById(`event-badge-${id}`).classList.add('d-none')
-            }
-        }
+        // function removeBadge(id) {
+        //     if (localStorage.getItem(`chat_${id}`)) {
+        //         localStorage.removeItem(`chat_${id}`)
+        //         document.getElementById(`event-badge-${id}`).classList.add('d-none')
+        //     }
+        // }
     </script>
 @endpush
