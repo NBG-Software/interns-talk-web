@@ -330,6 +330,9 @@
                     let response = await fetch("{{ route('media.store', $chat->id) }}", {
                         method: "POST",
                         body: formData,
+                        // headers:{
+                        //     'X-CSRF-TOKEN': @json(csrf_token()),
+                        // }
                     });
 
                     let data = await response.json();
@@ -357,7 +360,7 @@
 
 
             // Listing real time messages from both mentor and user
-            window.Echo.private('chat-channel-{{ $chat->id }}')
+            window.Echo.channel('chat-channel-{{ $chat->id }}')
                 .listen('.MessageSent', (event) => {
                     console.log(event.message);
                     appendMessageToDOM(event.message);

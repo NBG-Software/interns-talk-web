@@ -22,7 +22,7 @@ class MessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message_media' => 'file|mimes:jpg,jpeg,png|max:5120',
+            'message_media' => 'nullable|file|mimes:jpg,jpeg,png|max:5120',
             'message_text' => 'string',
             'chat_id' => 'required|exists:chats,id',
         ];
