@@ -48,8 +48,10 @@ class MessageController extends Controller
 
             $message = Message::create($validated);
 
+            Log::info('WebSocket Event triggered: Before Message Sent');
             // ProcessMessageJob::dispatch($validated['chat_id'], $validated['message_text']);
             broadcast(new MessageSent($message));
+            Log::info('WebSocket Event triggered: After Message Sent');
 
             return response()->success($request, ['chat_id' => $validated['chat_id']], 'Message send', 200);
 
